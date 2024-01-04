@@ -47,4 +47,7 @@ jobs:
         - name: Install Cli
           uses: elstudio/action-install-azure-cli@v1
 
+        - name: terraform plan
+          run: terraform plan -out main.tfplan
+
         
