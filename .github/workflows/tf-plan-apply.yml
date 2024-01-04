@@ -11,7 +11,7 @@ on:
 permissions:
     id-token: write
     contents: read
-    pull_requests: write
+    pull_request: write
 
 #These env variables are used by terraform azure provider to setup OIDC authentication
 
