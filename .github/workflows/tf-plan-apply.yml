@@ -44,7 +44,7 @@ jobs:
         - name: Terraform validate
           run: terraform validate
 
-        - name: Terraform plan
-          run: terraform plan -out main.tfplan
+        - name: Install Cli
+          uses: elstudio/action-install-azure-cli@v1
 
         
