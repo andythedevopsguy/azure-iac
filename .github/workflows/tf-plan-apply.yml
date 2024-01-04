@@ -37,3 +37,11 @@ jobs:
 
         - name: Terraform Init
           run: terraform init
+
+        - name: Terraform format
+          run: terraform fmt --recursive
+        
+        - name: Terraform validate
+          run: terraform fmt --recursive
+
+        
