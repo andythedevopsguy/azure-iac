@@ -1,0 +1,40 @@
+name: create terraform action
+on:
+    push:
+        branches:
+            - master
+    pull_request:
+        branches:
+            - master
+
+#Special permission required for OIDC authentication 
+permissions:
+    id-token: write
+    contents: read
+    pull_requests: write
+
+#These env variables are used by terraform azure provider to setup OIDC authentication
+
+env:
+    ARM_CLIENT_ID: "{{ secrets.AZURE_CLIENT_ID }}"
+    ARM_SUBSCRPTION_ID: "{{ secrets.ARM_SUBSCRPTION_ID }}"
+    ARM_TENANT_ID: "{{ secrets.ARM_TENANT_ID }}"
+
+jobs:
+    terraform-plan:
+        name: 'Terraform Plan'
+        runs-on: ubuntu-latest
+        env:
+            ARM_SKIP_PROVIDER_REGISTRATION: true
+        outputs:
+            tfplanExitCode: ${{ steps.tf-plan.outputs.exitcode}}
+        
+        steps:
+        - name: checkout
+          uses: actions/checkout@v3
+
+        - name: Setup Terraform
+          uses: hashicorp/setup-terraform@v2
+
+        - name: Terraform Init
+          run: terraform init
